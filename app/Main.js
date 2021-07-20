@@ -9,6 +9,7 @@ Axios.defaults.baseURL = process.env.BACKENDURL || "https://backendzareact.herok
 import StateContext from "./stateContext";
 import DispatchContext from "./dispatchContext";
 
+
 // my components
 import {Header} from "./components/header";
 import {HomeGuest} from "./components/homeGuest";
@@ -53,7 +54,7 @@ function Main() {
                 draft.loggedIn = false
                 return;
             case "flashMessage":
-                draft.flashMessages.push(action.value)
+                draft.flashMessages.push({message:action.value, color:action.color})
                 return
             case "openSearch":
                 draft.isSearchOpen = true

@@ -4,6 +4,7 @@ import Axios from 'axios'
 import {useImmerReducer} from "use-immer";
 import {CSSTransition} from "react-transition-group";
 import DispatchContext from "../dispatchContext";
+import {Flex, Heading, Input, Button} from "@chakra-ui/react";
 
 export function HomeGuest() {
     const appDispatch = useContext(DispatchContext)

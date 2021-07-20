@@ -9,6 +9,7 @@ import Axios from "axios";
 import ProfilePosts from "./profilePosts";
 import ProfileFollowers from "./profileFollowers";
 import ProfileFollowing from "./profileFollowing";
+import NotFound from "./notFound";
 
 function Profile(){
     // dekonstruktiramo objekt useParams ker rabimo edino username property
@@ -24,7 +25,8 @@ function Profile(){
             profileAvatar: 'https://gravatar.com/avatar/placeholder?s=128',
             isFollowing: false,
             counts: {postCount: "", followerCount: "", followingCount: ""}
-        }
+        },
+        notFound: false
     })
 
     // hocemo uporabiti useEffect samo ko se prvic zazene nasa komponenta
@@ -35,7 +37,11 @@ function Profile(){
          try {
              const response = await Axios.post(`/profile/${username}`, {token: appState.user.token}, {cancelToken: ourRequest.token})
              setState(draft => {
-                 draft.profileData = response.data
+                 if (!response.data) {
+                     draft.notFound = true
+                 } else {
+                     draft.profileData = response.data
+                 }
              })
          } catch (e) {
              console.log("There was a problem")
@@ -115,7 +121,12 @@ function Profile(){
         }
     }, [state.stopFollowingRequestCount])
 
-
+    if (state.notFound)
+        return (
+            <Page title={"Profile not found"}>
+                <NotFound />
+            </Page>
+        )
 
     return (
         <Page title={"Profile Screen"}>

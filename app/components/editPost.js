@@ -103,7 +103,7 @@ function EditPost(props) {
                 if (response.data) {
                     dispatch({type: "fetchComplete", value: response.data})
                     if (appState.user.username !== response.data.author.username) {
-                        appDispatch({type: "flashMessage", value: "Stop right there criminal scum!"})
+                        appDispatch({type: "flashMessage", value: "Stop right there criminal scum!", color:"danger"})
                         // redirect to homepage
                         props.history.push("/")
                     }
