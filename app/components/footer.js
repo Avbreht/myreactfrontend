@@ -1,6 +1,7 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {Button, Flex, Input, useColorMode, useColorModeValue} from "@chakra-ui/react";
+import {Button, Center, Flex, Input, useColorMode} from "@chakra-ui/react";
+import {MdBuild} from "react-icons/md";
 
 export function Footer() {
     const {toggleColorMode} = useColorMode()
@@ -13,7 +14,9 @@ export function Footer() {
             </p>
             <p className="m-0">Copyright &copy; 2020 <Link to="/" className="text-muted">ComplexApp</Link>. All rights
                 reserved.</p>
-            <Button onClick={toggleColorMode}>Change color mode</Button>
+            <Center>
+            <Button leftIcon={<MdBuild/>} variant={"ghost"} onClick={toggleColorMode}>Change color mode</Button>
+            </Center>
         </footer>
     )
 }

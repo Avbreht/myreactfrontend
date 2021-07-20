@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import StateContext from "../stateContext";
 import DispatchContext from "../dispatchContext";
 import ReactTooltip from "react-tooltip";
+import {ButtonGroup} from "@chakra-ui/react";
 
 export default function headerLoggedIn() {
     const appDispatch = useContext(DispatchContext)
@@ -18,7 +19,7 @@ export default function headerLoggedIn() {
     }
 
     return (
-        <div className="flex-row my-3 my-md-0">
+        <ButtonGroup size={"sm"} spacing={3}>
             <a data-for="search" data-tip="Search" onClick={handleSearchIcon} href="#" className="text-white mr-2 header-search-icon">
                 <i className="fas fa-search"></i>
             </a>
@@ -39,6 +40,6 @@ export default function headerLoggedIn() {
             <button onClick={handleLogout} className="btn btn-sm btn-secondary">
                 Sign Out
             </button>
-        </div>
+        </ButtonGroup>
     )
 }

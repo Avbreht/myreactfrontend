@@ -8,6 +8,8 @@ import ReactTooltip from "react-tooltip";
 import NotFound from "./notFound";
 import StateContext from "../stateContext";
 import DispatchContext from "../dispatchContext";
+import {Box, Flex, Heading, Image, Spacer} from "@chakra-ui/react";
+
 
 function ViewSinglePost(props) {
     const appState = useContext(StateContext)
@@ -81,8 +83,9 @@ function ViewSinglePost(props) {
 
     return (
         <Page title={post.title}>
-            <div className="d-flex justify-content-between">
-                <h2>{post.title}</h2>
+            <Flex>
+                <Heading as={"h2"} size={"md"}>{post.title}</Heading>
+                <Spacer />
                 {isOwner() && (
                     <span className="pt-2">
                     <Link to={`/post/${post._id}/edit`} data-tip="Edit" data-for="edit" className="text-primary mr-2">
@@ -93,20 +96,24 @@ function ViewSinglePost(props) {
                             <i className="fas fa-trash" />
                         </a>
                     <ReactTooltip id="delete" className="custom-tooltip"/>
-        </span>
+                    </span>
                 )}
-            </div>
+            </Flex>
 
-            <p className="text-muted small mb-4">
+            <Flex>
                 <Link to={`/profile/${post.author.username}`}>
-                    <img className="avatar-tiny" src={post.author.avatar} />
+                    <Image boxSize={"30px"} src={post.author.avatar} />
                 </Link>
-                Posted by <Link to={`/profile/${post.author.username}`}>{post.author.username}</Link> on {dateFormatted}
-            </p>
-
-            <div className="body-content">
+                <Spacer />
+                <Box p={1}>
+                    Posted by
+                    {<Link to={`/profile/${post.author.username}`}>{post.author.username}</Link>}
+                    on {dateFormatted}
+                </Box>
+            </Flex>
+            <Box>
                 <ReactMarkdown children={post.body} />
-            </div>
+            </Box>
         </Page>
     )
 }

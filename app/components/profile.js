@@ -3,6 +3,7 @@ import {Page} from "./page";
 import {useParams , NavLink, Switch, Route} from "react-router-dom"
 import StateContext from "../stateContext";
 import {useImmer} from "use-immer";
+import {Button, Flex, Image} from "@chakra-ui/react";
 
 // hocemo klicati server a ker nocemo da se usakic ko se updata kompnenta zgodi server request ga zapakiramo v useEffect
 import Axios from "axios";
@@ -131,16 +132,16 @@ function Profile(){
     return (
         <Page title={"Profile Screen"}>
             <h2>
-                <img className="avatar-small" src={state.profileData.profileAvatar} /> {state.profileData.profileUsername}
+                <Image boxSize={"35px"} src={state.profileData.profileAvatar} /> {state.profileData.profileUsername}
                 {appState.loggedIn && !state.profileData.isFollowing && appState.user.username !== state.profileData.profileUsername && state.profileData.profileUsername !== '...' && (
-                    <button onClick={startFollowing} disabled={state.followActionLoading} className="btn btn-primary btn-sm ml-2">Follow <i className="fas fa-user-plus"></i></button>
+                    <Button onClick={startFollowing} disabled={state.followActionLoading}>Follow <i className="fas fa-user-plus"></i></Button>
                 )}
                 {appState.loggedIn && state.profileData.isFollowing && appState.user.username !== state.profileData.profileUsername && state.profileData.profileUsername !== '...' && (
-                    <button onClick={stopFollowing} disabled={state.followActionLoading} className="btn btn-danger btn-sm ml-2">Unfollow <i className="fas fa-user-times"></i></button>
+                    <Button onClick={stopFollowing} disabled={state.followActionLoading}>Unfollow <i className="fas fa-user-times"></i></Button>
                 )}
             </h2>
 
-            <div className="profile-nav nav nav-tabs pt-2 mb-4">
+            <Flex>
                 <NavLink exact to={`/profile/${state.profileData.profileUsername}`} className="nav-item nav-link">
                     Posts: {state.profileData.counts.postCount}
                 </NavLink>
@@ -150,7 +151,7 @@ function Profile(){
                 <NavLink to={`/profile/${state.profileData.profileUsername}/following`} className="nav-item nav-link">
                     Following: {state.profileData.counts.followingCount}
                 </NavLink>
-            </div>
+            </Flex>
             <Switch>
                 <Route exact path="/profile/:username">
                     <ProfilePosts />

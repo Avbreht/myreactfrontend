@@ -6,6 +6,7 @@ import Axios from "axios";
 import LoadingDotsIcon from "./loadingDotsIcon";
 import {Link} from "react-router-dom";
 import Post from "./post";
+import {SimpleGrid} from "@chakra-ui/react";
 
 function Home() {
     const appState = useContext(StateContext)
@@ -43,11 +44,11 @@ function Home() {
             {state.feed.length > 0 && (
                 <>
                     <h2 className="text-center mb-4">Latest From Whom You Follow</h2>
-                    <div className="list-group">
+                    <SimpleGrid>
                         {state.feed.map(post => {
                             return <Post post={post} key={post._id}/>
                         })}
-                    </div>
+                    </SimpleGrid>
                 </>
             )}
             {state.feed.length === 0 && (

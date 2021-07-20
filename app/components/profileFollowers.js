@@ -3,6 +3,7 @@ import Axios from "axios"
 import { useParams, Link } from "react-router-dom"
 import LoadingDotsIcon from "./loadingDotsIcon"
 import StateContext from "../stateContext"
+import {Box, Image, SimpleGrid} from "@chakra-ui/react";
 
 function ProfileFollowers(props) {
     const appState = useContext(StateContext)
@@ -31,13 +32,15 @@ function ProfileFollowers(props) {
     if (isLoading) return <LoadingDotsIcon />
 
     return (
-        <div className="list-group">
+        <SimpleGrid>
             {posts.length > 0 &&
             posts.map((follower, index) => {
                 return (
-                    <Link key={index} to={`/profile/${follower.username}`} className="list-group-item list-group-item-action">
-                        <img className="avatar-tiny" src={follower.avatar} /> {follower.username}
+                    <Box borderWidth={"1px"} borderRadius={"lg"} overflow={"hidden"} w={"100%"} p={3}>
+                    <Link key={index} to={`/profile/${follower.username}`}>
+                        <Image boxSize={"30px"} src={follower.avatar} /> {follower.username}
                     </Link>
+                    </Box>
                 )
             })}
             {posts.length == 0 && appState.user.username == username && <p className="lead text-muted text-center">You don&rsquo;t have any followers yet.</p>}
@@ -53,7 +56,7 @@ function ProfileFollowers(props) {
                     )}
                 </p>
             )}
-        </div>
+        </SimpleGrid>
     )
 }
 

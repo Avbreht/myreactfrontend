@@ -4,6 +4,7 @@ import Axios from "axios";
 import {withRouter} from "react-router-dom"
 import StateContext from "../stateContext";
 import DispatchContext from "../dispatchContext";
+import {Textarea} from "@chakra-ui/react";
 
 function CreatePost(props) {
     const [title, setTitle] = useState()
@@ -31,8 +32,7 @@ function CreatePost(props) {
                     <label htmlFor="post-title" className="text-muted mb-1">
                         <small>Title</small>
                     </label>
-                    <input onChange={e => setTitle(e.target.value)} autoFocus name="title" id="post-title"
-                           className="form-control form-control-lg form-control-title" type="text" placeholder=""
+                    <Textarea onChange={e => setTitle(e.target.value)} autoFocus name="title" id="post-title" placeholder=""
                            autoComplete="off"/>
                 </div>
 
@@ -40,8 +40,7 @@ function CreatePost(props) {
                     <label htmlFor="post-body" className="text-muted mb-1 d-block">
                         <small>Body Content</small>
                     </label>
-                    <textarea onChange={e => setBody(e.target.value)} name="body" id="post-body" className="body-content tall-textarea form-control"
-                              type="text"></textarea>
+                    <Textarea onChange={e => setBody(e.target.value)} name="body" id="post-body" placeholder={"Write something that's on your mind"}/>
                 </div>
                 <button className="btn btn-primary">{appState.isSaving ? "Saving": "Save New Post"}</button>
             </form>

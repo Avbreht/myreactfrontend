@@ -8,6 +8,7 @@ Axios.defaults.baseURL = process.env.BACKENDURL || "https://backendzareact.herok
 
 import StateContext from "./stateContext";
 import DispatchContext from "./dispatchContext";
+import {ChakraProvider} from "@chakra-ui/react";
 
 
 // my components
@@ -118,6 +119,7 @@ function Main() {
 
 
   return (
+      <ChakraProvider>
       <StateContext.Provider value = {state}>
           <DispatchContext.Provider value={dispatch}>
             <BrowserRouter>
@@ -163,6 +165,7 @@ function Main() {
             </BrowserRouter>
           </DispatchContext.Provider>
       </StateContext.Provider>
+      </ChakraProvider>
   )
 
 }

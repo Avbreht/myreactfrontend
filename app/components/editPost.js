@@ -9,6 +9,7 @@ import DispatchContext from "../dispatchContext";
 import Home from "./home";
 import {HomeGuest} from "./homeGuest";
 import NotFound from "./notFound";
+import {Button} from "@chakra-ui/react";
 
 
 function EditPost(props) {
@@ -181,9 +182,9 @@ function EditPost(props) {
                     {state.body.hasErrors &&
                     <div className="alert alert-danger small liveValidateMessage">{state.body.message}</div>}
                 </div>
-                <button className="btn btn-primary" disabled={state.isSaving}>
+                <Button disabled={state.isSaving}>
                     {state.isSaving ? "Saving" : "Save Changes"}
-                </button>
+                </Button>
             </form>
         </Page>
     )
