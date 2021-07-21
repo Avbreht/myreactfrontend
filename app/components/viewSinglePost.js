@@ -8,7 +8,8 @@ import ReactTooltip from "react-tooltip";
 import NotFound from "./notFound";
 import StateContext from "../stateContext";
 import DispatchContext from "../dispatchContext";
-import {Box, Flex, Heading, Image, Spacer} from "@chakra-ui/react";
+import {Box, Flex, Heading, Image, Spacer, ButtonGroup, Tooltip, IconButton} from "@chakra-ui/react";
+import {FaEdit, FaTrash} from "react-icons/fa";
 
 
 function ViewSinglePost(props) {
@@ -52,7 +53,7 @@ function ViewSinglePost(props) {
         )
 
     const date = new Date(post.createdDate)
-    const dateFormatted = `${date.getMonth() + 1}/${date.getDate()}/${date.getFullYear()}`
+    const dateFormatted = `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`
 
     function isOwner() {
         if (appState.loggedIn) {
@@ -87,16 +88,18 @@ function ViewSinglePost(props) {
                 <Heading as={"h2"} size={"md"}>{post.title}</Heading>
                 <Spacer />
                 {isOwner() && (
-                    <span className="pt-2">
-                    <Link to={`/post/${post._id}/edit`} data-tip="Edit" data-for="edit" className="text-primary mr-2">
-                        <i className="fas fa-edit" />
-                    </Link>
-                    <ReactTooltip id="edit" className="custom-tooltip"/> {" "}
-                        <a onClick={deleteHandler} data-tip="Delete" data-for="delete" className="delete-post-button text-danger">
-                            <i className="fas fa-trash" />
+                    <ButtonGroup>
+                        <Tooltip>
+                            <Link to={`/post/${post._id}/edit`}>
+                                <IconButton aria-label={"Edit post"} icon={<FaEdit />} />
+                            </Link>
+                        </Tooltip>
+                        <Tooltip>
+                        <a onClick={deleteHandler}>
+                            <IconButton aria-label={"Delete post"} icon={<FaTrash />} />
                         </a>
-                    <ReactTooltip id="delete" className="custom-tooltip"/>
-                    </span>
+                        </Tooltip>
+                    </ButtonGroup>
                 )}
             </Flex>
 
