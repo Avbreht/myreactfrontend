@@ -53,7 +53,7 @@ function Main() {
                 return
             case "logout":
                 draft.loggedIn = false
-                return;
+                return
             case "flashMessage":
                 draft.flashMessages.push({message:action.value, color:action.color})
                 return
@@ -153,13 +153,6 @@ function Main() {
                             </Route>
                         </Switch>
                 </Suspense>
-                <CSSTransition timeout={330} in={state.isSearchOpen} classNames="search-overlay" unmountOnExit>
-                    <div className="search-overlay">
-                        <Suspense fallback="">
-                            <Search />
-                        </Suspense>
-                    </div>
-                </CSSTransition>
                 <Suspense fallback="">{state.loggedIn && <Chat />}</Suspense>
                 <Footer />
             </BrowserRouter>

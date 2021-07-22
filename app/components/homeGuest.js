@@ -4,7 +4,10 @@ import Axios from 'axios'
 import {useImmerReducer} from "use-immer";
 import {CSSTransition} from "react-transition-group";
 import DispatchContext from "../dispatchContext";
-import {Flex, Heading, Input, Button} from "@chakra-ui/react";
+import {
+    Flex, Heading, Box, Text, Button, SimpleGrid, FormControl,
+    FormLabel, FormErrorMessage, FormHelperText, Input, Spacer, Container,
+} from "@chakra-ui/react";
 
 export function HomeGuest() {
     const appDispatch = useContext(DispatchContext)
@@ -201,52 +204,48 @@ export function HomeGuest() {
     }
     return (
         <Page title="Home" wide={true}>
-            <div className="row align-items-center">
-                <div className="col-lg-7 py-3 py-md-5">
-                    <h1 className="display-3">Remember Writing?</h1>
-                    <p className="lead text-muted">Are you sick of short tweets and
-                        impersonal &ldquo;shared&rdquo; posts that are reminiscent of the late 90&rsquo;s email
-                        forwards? We believe getting back to actually writing is the key to enjoying the internet
-                        again.</p>
-                </div>
-                <div className="col-lg-5 pl-lg-5 pb-3 py-lg-5">
+            <Flex>
+                <Container>
+                    <SimpleGrid m={5} gridGap={5}>
+                        <Box alignContent={"center"}>
+                            <Heading as={"h2"} size={"2xl"}>Remember Writing?</Heading>
+                        </Box>
+                        <Box>
+                            <Text fontSize={20}>
+                                Are you sick of short tweets and
+                                impersonal &ldquo;shared&rdquo; posts that are reminiscent of the late 90&rsquo;s email
+                                forwards? We believe getting back to actually writing is the key to enjoying the internet
+                                again.
+                            </Text>
+                        </Box>
+                    </SimpleGrid>
+                </Container>
+                <Spacer />
+                <SimpleGrid m={2} p={2} mx={2}>
                     <form onSubmit={handleSubmit}>
-                        <div className="form-group">
-                            <label htmlFor="username-register" className="text-muted mb-1">
-                                <small>Username</small>
-                            </label>
-                            <input onChange={e => dispatch({type: "usernameImmediately", value:e.target.value})} id="username-register" name="username" className="form-control" type="text"
-                                   placeholder="Pick a username" autoComplete="off"/>
-                            <CSSTransition in={state.username.hasErrors} timeout={330} classNames="liveValidateMessage" unmountOnExit>
-                                <div className="alert alert-danger small liveValidateMessage" >{state.username.message}</div>
-                            </CSSTransition>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="email-register" className="text-muted mb-1">
-                                <small>Email</small>
-                            </label>
-                            <input onChange={e => dispatch({type: "emailImmediately", value:e.target.value})} id="email-register" name="email" className="form-control" type="text"
-                                   placeholder="you@example.com" autoComplete="off"/>
-                            <CSSTransition in={state.email.hasErrors} timeout={330} classNames="liveValidateMessage" unmountOnExit>
-                                <div className="alert alert-danger small liveValidateMessage" >{state.email.message}</div>
-                            </CSSTransition>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="password-register" className="text-muted mb-1">
-                                <small>Password</small>
-                            </label>
-                            <input onChange={e => dispatch({type: "passwordImmediately", value:e.target.value})} id="password-register" name="password" className="form-control" type="password"
-                                   placeholder="Create a password"/>
-                            <CSSTransition in={state.password.hasErrors} timeout={330} classNames="liveValidateMessage" unmountOnExit>
-                                <div className="alert alert-danger small liveValidateMessage" >{state.password.message}</div>
-                            </CSSTransition>
-                        </div>
-                        <button type="submit" className="py-3 mt-4 btn btn-lg btn-success btn-block">
+                    <FormControl id={"submit"}>
+                        <FormLabel>Username</FormLabel>
+                        <Input onChange={e => dispatch({type: "usernameImmediately", value:e.target.value})} id="username-register" name="username" placeholder="Pick a username" autoComplete="off"/>
+                        <CSSTransition in={state.username.hasErrors} timeout={330} unmountOnExit>
+                            <FormErrorMessage>{state.username.message}</FormErrorMessage>
+                        </CSSTransition>
+                        <FormLabel mt={"5px"}>Email</FormLabel>
+                        <Input onChange={e => dispatch({type: "emailImmediately", value:e.target.value})} id="email-register" name="email" placeholder="you@example.com" autoComplete="off"/>
+                        <CSSTransition in={state.email.hasErrors} timeout={330} unmountOnExit>
+                            <FormErrorMessage>{state.email.message}</FormErrorMessage>
+                        </CSSTransition>
+                        <FormLabel mt={"5px"}>Password</FormLabel>
+                        <Input onChange={e => dispatch({type: "passwordImmediately", value:e.target.value})} id="password-register" name="password" placeholder="Create a password" autoComplete="off" type={"password"}/>
+                        <CSSTransition in={state.password.hasErrors} timeout={330} unmountOnExit>
+                            <FormErrorMessage>{state.password.message}</FormErrorMessage>
+                        </CSSTransition>
+                        <Button mt={"10px"} type="submit">
                             Sign up for ComplexApp
-                        </button>
+                        </Button>
+                    </FormControl>
                     </form>
-                </div>
-            </div>
+                </SimpleGrid>
+            </Flex>
         </Page>
     )
 }
